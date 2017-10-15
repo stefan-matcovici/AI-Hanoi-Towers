@@ -12,3 +12,6 @@ if __name__ == "__main__":
     random = RandomAlgorithm(3, 5)
 
     print random.current_state
+
+    backtrack = BacktrackAlgorithm(3, 3, branch_bound=True)
+    backtrack.solve()

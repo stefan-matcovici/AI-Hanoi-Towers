@@ -39,3 +39,7 @@ class State:
     def __eq__(self, other):
         """ Equal comparator """
         return self.positions == other.positions
+
+    def __repr__(self):
+        """ Representation for printing objects in lists"""
+        return str(self)
