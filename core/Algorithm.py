@@ -45,7 +45,7 @@ class Algorithm:
 
     def steps(self):
         """ Returns the number of steps to reach the result """
-        return len(self.states)
+        return len(self.states) - 1
 
     def solve(self):
         """ This method must be implemented and called to solve the problem """

@@ -3,7 +3,7 @@ from core import *
 
 class BacktrackAlgorithm(Algorithm):
     def __init__(self, no_discs, no_rods, branch_bound=False):
-        """ Overriden constructor """
+        """ Overridden constructor """
         Algorithm.__init__(self, no_discs, no_rods)
 
         self.database = []
@@ -22,17 +22,33 @@ class BacktrackAlgorithm(Algorithm):
                 self.moves[k] = (i, j)
                 k = k + 1
 
+    def backtrack(self):
+        """ Backtrack step """
+        self.database.pop()
+
     def solve(self):
         self.database.append([self.initial_state, 0])  # push the initial state
 
         while self.database:
             # print self.database
 
+            if self.limit and len(self.database) >= self.limit:
+                self.backtrack()
+
             self.current_state, move = self.database[-1]  # get latest state pushed
 
             if self.current_state == self.final_state:  # we reached a solution
-                print [x[0] for x in self.database]  # print the path
-                exit()
+                # print [x[0] for x in self.database]         # print the path
+
+                if self.branch_bound:
+                    if not self.limit:
+                        self.limit = len(self.database)
+                    elif len(self.database) < self.limit:
+                        self.states = [x[0] for x in self.database]
+                        self.limit = len(self.database)
+
+                self.backtrack()
+                continue
 
             next_state = None
             while move < len(self.moves):  # as long as there are possible moves and the current move isn't valid
@@ -42,9 +58,9 @@ class BacktrackAlgorithm(Algorithm):
                         break
                 move = move + 1
 
-            if move == len(self.moves):
-                self.database.pop()
+            if move >= len(self.moves):  # no more possible moves
+                self.backtrack()
                 continue
 
-            self.database[-1][1] = move  # update last state with next move to try
+            self.database[-1][1] = move + 1  # update last state with next move to try
             self.database.append([next_state, 0])  # push the new state with first move to try
