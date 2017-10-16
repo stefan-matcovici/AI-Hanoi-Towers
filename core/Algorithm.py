@@ -1,5 +1,5 @@
 import random
-
+from copy import deepcopy
 from State import State
 
 
@@ -42,6 +42,19 @@ class Algorithm:
 
         self.current_state = self.current_state.move(random_disc, random_rod)  # update current_state
         self.states.append(self.current_state)
+
+
+    def list_all_possibilities(self):
+        """Lists all possible(valid) states from the current one"""
+        possibilities = []
+        for which in range(self.no_discs):
+            for where in range(self.no_rods):
+                if self.current_state.can_move(which,where):
+                    positions = deepcopy(self.current_state.positions)
+                    positions[which] = where
+                    state = State(positions)
+                    possibilities.append(state)
+        return possibilities
 
     def steps(self):
         """ Returns the number of steps to reach the result """
