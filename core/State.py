@@ -43,3 +43,6 @@ class State:
     def __repr__(self):
         """ Representation for printing objects in lists"""
         return str(self)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)

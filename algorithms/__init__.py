@@ -1,2 +1,3 @@
 from BacktrackAlgorithm import BacktrackAlgorithm
+from HillClimbingAlgorithm import HillClimbingAlgorithm
 from RandomAlgorithm import RandomAlgorithm

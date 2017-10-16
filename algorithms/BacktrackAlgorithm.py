@@ -30,7 +30,7 @@ class BacktrackAlgorithm(Algorithm):
         self.database.append([self.initial_state, 0])  # push the initial state
 
         while self.database:
-            # print self.database
+            print self.database
 
             if self.limit and len(self.database) >= self.limit:
                 self.backtrack()
