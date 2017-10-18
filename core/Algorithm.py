@@ -17,6 +17,8 @@ class Algorithm:
         self.states = []
         self.states.append(self.current_state)
 
+        self.visited_states = 0
+
     def __init_initial_state(self):
         """ Initialize the initial state with all the discs on the first rod """
         arr = []
@@ -59,6 +61,9 @@ class Algorithm:
     def steps(self):
         """ Returns the number of steps to reach the result """
         return len(self.states) - 1
+
+    def get_visited_states(self):
+        return self.visited_states
 
     def solve(self):
         """ This method must be implemented and called to solve the problem """

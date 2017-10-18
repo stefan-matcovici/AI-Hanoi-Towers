@@ -1,3 +1,6 @@
+from AStarAlgorithm import AStarAlgorithm
 from BacktrackAlgorithm import BacktrackAlgorithm
 from HillClimbingAlgorithm import HillClimbingAlgorithm
 from RandomAlgorithm import RandomAlgorithm
+from RandomOptimizedAlgorithm import RandomOptimizedAlgorithm
+from RecursiveBacktrackAlgorithm import RecursiveBacktrackAlgorithm

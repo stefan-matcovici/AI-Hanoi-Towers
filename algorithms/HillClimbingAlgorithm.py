@@ -32,6 +32,7 @@ class HillClimbingAlgorithm(Algorithm):
 
         while self.current_state != self.final_state:
             self.database.append(self.current_state)
+            self.visited_states += 1
 
             # print [self.heuristic(x) for x in self.database]
             best_moves = []  # the moves that produce the best score
