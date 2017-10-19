@@ -1,6 +1,8 @@
 import random
 from copy import deepcopy
+
 from State import State
+
 
 class Algorithm:
     def __init__(self, no_discs, no_rods):
@@ -41,7 +43,6 @@ class Algorithm:
 
         self.set_current_state(self.current_state.move(random_disc, random_rod))  # update current_state
         self.states.append(self.current_state)
-
 
     def valid_neighbours(self):
         """Lists all possible(valid) states from the current one"""

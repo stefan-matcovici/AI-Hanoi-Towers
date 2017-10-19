@@ -30,35 +30,22 @@ class BacktrackAlgorithm(Algorithm):
         self.database.append([self.initial_state, 0])  # push the initial state
 
         while self.database:
-            # print self.database
-            self.visited_states += 1
-
             if self.limit and len(self.database) >= self.limit:
                 self.backtrack()
 
             self.current_state, move = self.database[-1]  # get latest state pushed
+            self.visit(self.current_state)
 
             if self.current_state == self.final_state:  # we reached a solution
-                # print [x[0] for x in self.database]         # print the path
-
-                if self.branch_bound:
-                    if not self.limit:
-                        self.limit = len(self.database)
-                    elif len(self.database) < self.limit:
-                        self.states = [x[0] for x in self.database]
-                        self.limit = len(self.database)
-                else:
-                    self.states = [x[0] for x in self.database]
-                    break
-
-                self.backtrack()
-                continue
+                # print [x[0] for x in self.database]           # print the path
+                self.states = [x[0] for x in self.database]
+                break
 
             next_state = None
             while move < len(self.moves):  # as long as there are possible moves
                 if self.current_state.can_move(self.moves[move][0], self.moves[move][1]):  # the current move is valid
                     next_state = self.current_state.move(self.moves[move][0], self.moves[move][1])  # try the move
-                    if next_state not in [x[0] for x in self.database]:  # check for cycles
+                    if next_state not in [x[0] for x in self.database] and next_state not in self.visited_states:
                         break
                 move = move + 1
 

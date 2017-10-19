@@ -4,7 +4,7 @@ from core import *
 
 
 class HillClimbingAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=3, restarts=10):
+    def __init__(self, no_discs, no_rods, heuristic=2, restarts=100):
         """ Overridden constructor """
         Algorithm.__init__(self, no_discs, no_rods)
 
@@ -32,9 +32,9 @@ class HillClimbingAlgorithm(Algorithm):
 
         while self.current_state != self.final_state:
             self.database.append(self.current_state)
-            self.visited_states += 1
+            self.visit(self.current_state)
 
-            # print [self.heuristic(x) for x in self.database]
+            # print [(x,self.heuristic(x)) for x in self.database]
             best_moves = []  # the moves that produce the best score
             best_score = float('+inf')  # the best score so far
 
@@ -47,7 +47,7 @@ class HillClimbingAlgorithm(Algorithm):
                     best_moves += [move]
 
             if best_score == float("+inf"):  # we reached a dead end
-                if self.restarts == 0:  # out of restarts we end
+                if self.restarts == 0:  # out of restarts, we end
                     self.database = []
                     break
                 self.dead_ends.append(self.current_state)  # mark it so the path doesn't go one more time
@@ -61,7 +61,6 @@ class HillClimbingAlgorithm(Algorithm):
 
         if self.current_state == self.final_state:
             self.states = self.database + [self.current_state]
-
 
     def anticipate_score(self, move):
         """ Calculates the score for a move """
