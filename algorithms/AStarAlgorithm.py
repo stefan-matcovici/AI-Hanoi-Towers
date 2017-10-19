@@ -5,34 +5,40 @@ from core import *
 
 
 class AStarAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=3, restarts=10):
+    def __init__(self, no_discs, no_rods, heuristic=1, restarts=10):
         """ Overridden constructor """
         Algorithm.__init__(self, no_discs, no_rods)
 
-        self.visitedQueue = []
         self.priorityQueue = PriorityQueue()
         self.parentDict = {}
+        self.costDict = {}
         self.heuristic = None
-
         exec ("self.heuristic = self.heuristic" + str(heuristic))
 
+    def calculate_cost(self,state):
+        temp_state = deepcopy(state)
+        score = 0
+        while temp_state != self.initial_state:
+            temp_state = self.parentDict[temp_state]
+            score += 1
+        return score
 
     def solve(self):
         found = False
         self.priorityQueue.put(self.initial_state,0)
         while not found and self.priorityQueue.qsize():
-            closestChild = self.priorityQueue.get() # child with minimum h cost
-            self.set_current_state(closestChild)
-            children = self.list_all_possibilities() # all neighbours
-            self.visitedQueue.append(closestChild)
+            closest_child = self.priorityQueue.get() # child with minimum h cost
+            children = self.valid_neighbours() # all neighbours
+            self.visit(closest_child)
             for child in children:
-                if child not in self.visitedQueue:
+                if child not in self.visited_states:
                     self.parentDict[child] = self.current_state #mark the states route
-                    if child.__eq__(self.final_state):
+                    if child == self.final_state:
                         found = True
                         break
-                    priority = self.heuristic(child)
-                    self.priorityQueue.put(child,priority)
+                    heuristic = self.heuristic(child)
+                    cost = self.calculate_cost(child)
+                    self.priorityQueue.put(child,heuristic + cost)
         #build the states from the parentdictionary
         state = self.final_state
         self.states = list()

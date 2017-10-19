@@ -4,9 +4,11 @@ import random
 
 
 class RandomOptimizedAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods):
+    def __init__(self, no_discs, no_rods,restarts = 1000):
         Algorithm.__init__(self, no_discs, no_rods)
         self.dead_ends = []
+        self.restarts = restarts
+        self.restarts_so_far = 0
 
     def unvisited_neighbours(self):
         neighbours = self.valid_neighbours()
@@ -27,9 +29,14 @@ class RandomOptimizedAlgorithm(Algorithm):
         while self.current_state != self.final_state:
             neighbours = self.neighbours()
             if len(neighbours) == 0:
-                self.dead_ends.append(self.current_state)
-                self.visit(self.states[-1])
-                self.states.pop()
+                if self.restarts_so_far < self.restarts:
+                    self.restarts_so_far += 1
+                    self.dead_ends.append(self.current_state)
+                    self.visit(self.states[-1])
+                    self.states.pop()
+                else:
+                    print "Exceded number of restarts"
+                    break
             else:
                 self.visit(neighbours[random.randint(0, len(neighbours) - 1)])
                 self.states.append(self.current_state)

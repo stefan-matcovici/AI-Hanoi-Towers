@@ -17,7 +17,9 @@ class Algorithm:
         self.current_state = State(state=self.initial_state)
         self.states = []
         self.states.append(self.current_state)
-        self.visited_states =[]
+        self.visited_states = []
+        self.visited_states.append(self.initial_state)
+
     def __init_initial_state(self):
         """ Initialize the initial state with all the discs on the first rod """
         arr = []
@@ -31,18 +33,6 @@ class Algorithm:
         for i in range(self.no_discs):
             arr.append(self.no_rods - 1)
         return State(arr)
-
-    def move_to_next_random_state(self):
-        """ Generates random disc and random rod until a move can be done and makes a valid move"""
-        random_disc = random.randint(0, self.no_discs - 1)
-        random_rod = random.randint(0, self.no_rods - 1)
-
-        while not self.current_state.can_move(random_disc, random_rod):  # until a valid move can be done
-            random_disc = random.randint(0, self.no_discs - 1)
-            random_rod = random.randint(0, self.no_rods - 1)
-
-        self.set_current_state(self.current_state.move(random_disc, random_rod))  # update current_state
-        self.states.append(self.current_state)
 
     def valid_neighbours(self):
         """Lists all possible(valid) states from the current one"""
