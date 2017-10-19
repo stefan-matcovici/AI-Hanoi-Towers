@@ -12,33 +12,46 @@ class AStarAlgorithm(Algorithm):
         self.priorityQueue = PriorityQueue()
         self.parentDict = {}
         self.costDict = {}
+        self.costDict[self.initial_state] = 0
         self.heuristic = None
         exec ("self.heuristic = self.heuristic" + str(heuristic))
 
     def calculate_cost(self,state):
         temp_state = deepcopy(state)
-        score = 0
+        cost = 0
         while temp_state != self.initial_state:
             temp_state = self.parentDict[temp_state]
-            score += 1
-        return score
+            cost += 1
+        return cost
+
+    def calculate_score(self,state):
+        return self.heuristic(state)+self.calculate_cost(state)
 
     def solve(self):
         found = False
-        self.priorityQueue.put(self.initial_state,0)
+        count = 0
+        self.priorityQueue.put((0,self.initial_state))
         while not found and self.priorityQueue.qsize():
-            closest_child = self.priorityQueue.get() # child with minimum h cost
-            children = self.valid_neighbours() # all neighbours
+            closest_child = self.priorityQueue.get()[1] # child with minimum h cost
             self.visit(closest_child)
+            children = self.valid_neighbours() # all neighbours
             for child in children:
                 if child not in self.visited_states:
                     self.parentDict[child] = self.current_state #mark the states route
                     if child == self.final_state:
                         found = True
                         break
-                    heuristic = self.heuristic(child)
-                    cost = self.calculate_cost(child)
-                    self.priorityQueue.put(child,heuristic + cost)
+                    score = self.calculate_score(child)
+                    self.costDict[child] = score
+                    self.priorityQueue.put((score,child))
+                else:
+                    score = self.calculate_score(child)
+                    if self.costDict[child] < score:
+                        count += 1
+                        print len(self.visited_states)
+                        self.costDict[child] = score
+                        self.priorityQueue.put((score, child))
+
         #build the states from the parentdictionary
         state = self.final_state
         self.states = list()
@@ -47,3 +60,4 @@ class AStarAlgorithm(Algorithm):
             state = self.parentDict[state]
         self.states.append(self.initial_state)
         self.states.reverse()
+        print count
