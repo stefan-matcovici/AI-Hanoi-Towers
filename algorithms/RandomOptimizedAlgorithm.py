@@ -6,25 +6,31 @@ import random
 class RandomOptimizedAlgorithm(Algorithm):
     def __init__(self, no_discs, no_rods):
         Algorithm.__init__(self, no_discs, no_rods)
-        self.uniqueStates = []
+        self.dead_ends = []
 
+    def unvisited_neighbours(self):
+        neighbours = self.valid_neighbours()
+        result = []
+        for state in neighbours:
+            if state not in self.states:
+                result.append(state)
+        return result
+
+    def neighbours(self):
+        unvisited = self.unvisited_neighbours()
+        result = []
+        for state in unvisited:
+            if state not in self.dead_ends:
+                result.append(state)
+        return result
     def solve(self):
-        while not self.current_state.__eq__(self.final_state):
-            possibilities = self.list_all_possibilities()
-            is_state_visited = True
-            while is_state_visited:
-                is_state_visited = False
-                if len(possibilities) > 0: #there are valid states that have not been visited
-                    random_state = possibilities[random.randint(0, len(possibilities) - 1)]
-                    for state in self.states:
-                        if random_state.__eq__(state):
-                            #continue the while loop till there is an unvisited valid state
-                            is_state_visited = True
-                            possibilities.remove(random_state)
-                            break
-                elif len(possibilities) == 0:#we are blocked and cannot move
-                    possibilities = self.list_all_possibilities()
-                    #allow revisiting a state
-                    random_state = possibilities[random.randint(0, len(possibilities) - 1)]
-            self.current_state = random_state
-            self.states.append(self.current_state)
+        while self.current_state != self.final_state:
+            neighbours = self.neighbours()
+            if len(neighbours) == 0:
+                self.dead_ends.append(self.current_state)
+                self.visit(self.states[-1])
+                self.states.pop()
+            else:
+                self.visit(neighbours[random.randint(0, len(neighbours) - 1)])
+                self.states.append(self.current_state)
+

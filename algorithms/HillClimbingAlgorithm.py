@@ -62,32 +62,6 @@ class HillClimbingAlgorithm(Algorithm):
         if self.current_state == self.final_state:
             self.states = self.database + [self.current_state]
 
-    def heuristic1(self, state):
-        """ Add to the score the difference between final rod and current rod """
-        score = 0
-        for disc in state.positions:
-            score = score + self.no_rods - 1 - disc
-
-        return score
-
-    def heuristic2(self, state):
-        """ Add one to the score for every disc that is not on the final rod"""
-        score = 0
-        for disc in state.positions:
-            score = score + (1 if disc != self.no_rods - 1 else 0)
-
-        return score
-
-    def heuristic3(self, state):
-        """ Add one to the score for every disc that is not on top of the right disc or rod in case of the first disc"""
-        score = 0
-        for i in range(self.no_discs):
-            if i == 0 and self.current_state.positions[i] != (self.no_rods - 1):
-                score = score + 1
-            elif self.current_state.positions[i] != self.current_state.positions[i - 1]:
-                score = score + 1
-
-        return score
 
     def anticipate_score(self, move):
         """ Calculates the score for a move """
