@@ -1,12 +1,9 @@
-from core.Benchmark import Benchmark
 from algorithms import *
 
 if __name__ == "__main__":
     """TODO: implement custom initial state and final state
              implement random optimized with custom backsteps (intermediate steps)
-             hillclimbing: consider current state score
-                           sum, prod, ponderat
-                           scadere scor doar o tranzitie
+             hillclimbing: euristica
              astar: from final state to initial state
     """
 
