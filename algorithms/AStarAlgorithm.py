@@ -10,54 +10,35 @@ class AStarAlgorithm(Algorithm):
         Algorithm.__init__(self, no_discs, no_rods, initial)
 
         self.priorityQueue = PriorityQueue()
-        self.parentDict = {}
-        self.costDict = {}
-        self.costDict[self.initial_state] = 0
+        self.state_cost = {}
+        self.state_score = {}
+        self.came_from = {}
         self.heuristic = None
         exec ("self.heuristic = self.heuristic" + str(heuristic))
 
-    def calculate_cost(self,state):
-        temp_state = deepcopy(state)
-        cost = 0
-        while temp_state != self.initial_state:
-            temp_state = self.parentDict[temp_state]
-            cost += 1
-        return cost
-
-    def calculate_score(self,state):
-        return self.heuristic(state)+self.calculate_cost(state)
 
     def solve(self):
         found = False
-        count = 0
         self.priorityQueue.put((0,self.initial_state))
+        self.came_from[self.initial_state] = self.initial_state
+        self.state_cost[self.initial_state] = 0
         while not found and self.priorityQueue.qsize():
             closest_child = self.priorityQueue.get()[1] # child with minimum h cost
             self.visit(closest_child)
             children = self.valid_neighbours() # all neighbours
             for child in children:
-                if child not in self.visited_states:
-                    self.parentDict[child] = self.current_state #mark the states route
-                    if child == self.final_state:
-                        found = True
-                        break
-                    score = self.calculate_score(child)
-                    self.costDict[child] = score
+                self.state_cost[child] = self.state_cost[self.current_state]+1
+                score = self.heuristic(child) + self.state_cost[child]
+                if not self.state_score.get(child) or score < self.state_score.get(child):
+                    self.state_score[child] = score
                     self.priorityQueue.put((score,child))
-                else:
-                    score = self.calculate_score(child)
-                    if self.costDict[child] < score:
-                        count += 1
-                        print len(self.visited_states)
-                        self.costDict[child] = score
-                        self.priorityQueue.put((score, child))
+                    self.came_from[child] = self.current_state
 
-        #build the states from the parentdictionary
+        #build the states from the came_fromionary
         state = self.final_state
         self.states = list()
         while state!= self.initial_state:
             self.states.append(state)
-            state = self.parentDict[state]
+            state = self.came_from[state]
         self.states.append(self.initial_state)
         self.states.reverse()
-        print count

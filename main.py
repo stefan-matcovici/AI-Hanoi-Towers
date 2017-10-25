@@ -1,5 +1,5 @@
 from core import HanoiApp as hanoi
-
+from algorithms import *
 if __name__ == "__main__":
     """TODO: implement custom initial state and final state
              implement random optimized with custom backsteps (intermediate steps)
@@ -7,4 +7,7 @@ if __name__ == "__main__":
              astar: from final state to initial state
     """
 
-    hanoi.HanoiApp().run()
+    # hanoi.HanoiApp().run()
+    astar = AStarAlgorithm(4,4,1)
+    astar.solve()
+    print astar.steps()

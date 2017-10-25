@@ -62,7 +62,7 @@ class Algorithm:
         """ Add to the score the difference between final rod and current rod """
         score = 0
         for disc in state.positions:
-            score = score + disc - self.no_rods - 1
+            score = score + self.no_rods - disc  - 1
 
         return score
 
