@@ -16,6 +16,6 @@ if __name__ == "__main__":
     # benchmark = Benchmark(int(no_discs), int(no_rods))
     # benchmark.test()
 
-    star = AStarAlgorithm(3, 3)
-    star.solve()
-    print star.steps()
+    ropt = RandomOptimizedAlgorithm(4, 4)
+    ropt.solve()
+    print ropt.steps()
