@@ -4,13 +4,13 @@ from State import State
 
 
 class Algorithm:
-    def __init__(self, no_discs, no_rods):
+    def __init__(self, no_discs, no_rods, initial):
         """ Constructor """
 
         self.no_rods = no_rods
         self.no_discs = no_discs
 
-        self.initial_state = self.__init_initial_state()
+        self.initial_state = self.__init_initial_state(initial)
         self.final_state = self.__init_final_state()
 
         self.current_state = State(state=self.initial_state)
@@ -19,8 +19,10 @@ class Algorithm:
         self.visited_states = []
         self.visited_states.append(self.initial_state)
 
-    def __init_initial_state(self):
+    def __init_initial_state(self, initial):
         """ Initialize the initial state with all the discs on the first rod """
+        if len(initial) != 0:
+            return State(initial)
         arr = []
         for i in range(self.no_discs):
             arr.append(0)

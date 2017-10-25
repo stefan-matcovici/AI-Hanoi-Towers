@@ -5,16 +5,18 @@ from algorithms import *
 
 
 class Benchmark:
-    def __init__(self, no_discs, no_rods, no_iter=10):
+    def __init__(self, no_discs, no_rods, initial=[], no_iter=10):
         """ Constructor """
 
         self.no_rods = no_rods
         self.no_discs = no_discs
         self.no_iter = no_iter
 
+        self.initial = initial
+
         self.algorithms = ["A star", "Backtrack", "Hill climbing", "Random", "Random optimized", "Recursive backtrack"]
 
-    def test(self):
+    def start(self):
         # self.test_astar()
         self.test_backtracking()
         self.test_backtracking_recursive()
@@ -24,32 +26,32 @@ class Benchmark:
 
     def test_astar(self):
         print "***Benchmarking A Star algorithm***"
-        algorithm = AStarAlgorithm(self.no_discs, self.no_rods)
+        algorithm = AStarAlgorithm(self.no_discs, self.no_rods, initial=self.initial)
         self.print_result(algorithm)
 
     def test_backtracking(self):
         print "***Benchmarking Backtracking algorithm***"
-        algorithm = BacktrackAlgorithm(self.no_discs, self.no_rods)
+        algorithm = BacktrackAlgorithm(self.no_discs, self.no_rods, initial=self.initial)
         self.print_result(algorithm)
 
     def test_backtracking_recursive(self):
         print "***Benchmarking Recursive Backtracking algorithm***"
-        algorithm = RecursiveBacktrackAlgorithm(self.no_discs, self.no_rods)
+        algorithm = RecursiveBacktrackAlgorithm(self.no_discs, self.no_rods, initial=self.initial)
         self.print_result(algorithm)
 
     def test_hillclimbing(self):
         print "***Benchmarking Hill Climbing algorithm***"
-        algorithm = HillClimbingAlgorithm(self.no_discs, self.no_rods)
+        algorithm = HillClimbingAlgorithm(self.no_discs, self.no_rods, initial=self.initial)
         self.print_iterated_result(algorithm)
 
     def test_random(self):
         print "***Benchmarking Random algorithm***"
-        algorithm = RandomAlgorithm(self.no_discs, self.no_rods)
+        algorithm = RandomAlgorithm(self.no_discs, self.no_rods, initial=self.initial)
         self.print_iterated_result(algorithm)
 
     def test_random_optimized(self):
         print "***Benchmarking Random Optimized algorithm***"
-        algorithm = RandomOptimizedAlgorithm(self.no_discs, self.no_rods)
+        algorithm = RandomOptimizedAlgorithm(self.no_discs, self.no_rods, initial=self.initial)
         self.print_iterated_result(algorithm)
 
     def get_execution_time(self, algorithm):

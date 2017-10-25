@@ -1,11 +1,11 @@
-from core import *
-from copy import deepcopy
 import random
+
+from core import *
 
 
 class RandomOptimizedAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods,restarts = 1000):
-        Algorithm.__init__(self, no_discs, no_rods)
+    def __init__(self, no_discs, no_rods, restarts=1000, initial=[]):
+        Algorithm.__init__(self, no_discs, no_rods, initial)
         self.dead_ends = []
         self.restarts = restarts
         self.restarts_so_far = 0

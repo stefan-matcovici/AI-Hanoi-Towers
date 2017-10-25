@@ -1,9 +1,11 @@
-from core import *
 import random
 
+from core import *
+
+
 class RandomAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods):
-        Algorithm.__init__(self, no_discs, no_rods)
+    def __init__(self, no_discs, no_rods, initial=[]):
+        Algorithm.__init__(self, no_discs, no_rods, initial)
 
     def solve(self):
 

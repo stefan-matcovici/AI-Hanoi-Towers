@@ -2,9 +2,9 @@ from core import *
 
 
 class RecursiveBacktrackAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, branch_bound=False):
+    def __init__(self, no_discs, no_rods, branch_bound=False, initial=[]):
         """ Overridden constructor """
-        Algorithm.__init__(self, no_discs, no_rods)
+        Algorithm.__init__(self, no_discs, no_rods, initial)
 
         self.database = []
         self.moves = {}

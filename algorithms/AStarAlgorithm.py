@@ -1,13 +1,13 @@
-import random
 from Queue import PriorityQueue
 from copy import deepcopy
+
 from core import *
 
 
 class AStarAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=1, restarts=10):
+    def __init__(self, no_discs, no_rods, heuristic=1, restarts=10, initial=[]):
         """ Overridden constructor """
-        Algorithm.__init__(self, no_discs, no_rods)
+        Algorithm.__init__(self, no_discs, no_rods, initial)
 
         self.priorityQueue = PriorityQueue()
         self.parentDict = {}
