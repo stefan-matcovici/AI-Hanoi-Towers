@@ -32,6 +32,10 @@ class RandomOptimizedAlgorithm(Algorithm):
                 if self.restarts_so_far < self.restarts:
                     self.restarts_so_far += 1
                     self.dead_ends.append(self.current_state)
+                    go_back = random.randint(0,len(self.states)-1)
+                    while go_back:
+                        self.states.pop()
+                        go_back -=1
                     self.visit(self.states[-1])
                     self.states.pop()
                 else:
