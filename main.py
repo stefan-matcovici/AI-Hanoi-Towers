@@ -1,4 +1,3 @@
-from core.Benchmark import Benchmark
 from algorithms import *
 
 if __name__ == "__main__":
@@ -16,6 +15,6 @@ if __name__ == "__main__":
     # benchmark = Benchmark(int(no_discs), int(no_rods))
     # benchmark.test()
 
-    star = AStarAlgorithm(3, 3)
-    star.solve()
-    print star.steps()
+    hill = HillClimbingAlgorithm(5, 3)
+    hill.solve()
+    print hill.steps()

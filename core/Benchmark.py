@@ -5,7 +5,7 @@ from algorithms import *
 
 
 class Benchmark:
-    def __init__(self, no_rods, no_discs, no_iter=10):
+    def __init__(self, no_discs, no_rods, no_iter=10):
         """ Constructor """
 
         self.no_rods = no_rods
@@ -71,9 +71,9 @@ class Benchmark:
             result += solution_steps
             visited_states += solution_visited
 
-        print "Duration: {}".format(total_time)
-        print "Result: {}".format(result)
-        print "Visited states: {}".format(visited_states)
+        print "Duration: {}".format(total_time / self.no_iter)
+        print "Result: {}".format(1.0 * result / self.no_iter)
+        print "Visited states: {}".format(1.0 * visited_states / self.no_iter)
 
     def print_result(self, algorithm):
         algorithm_time = self.get_execution_time(algorithm)
