@@ -90,7 +90,7 @@ class Algorithm:
         score = 0
         for i in range(self.no_discs):
             score = score + state.positions[i] * (i + 1)
-        return score
+        return 1.0/(score+1)
 
     def solve(self):
         """ This method must be implemented and called to solve the problem """
