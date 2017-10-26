@@ -7,7 +7,7 @@ class RandomOptimizedAlgorithm(Algorithm):
     def __init__(self, no_discs, no_rods, restarts=10000, initial=[], final=[]):
         Algorithm.__init__(self, no_discs, no_rods, initial, final)
         self.dead_ends = []
-        self.restarts = restarts
+        self.restarts = float("+inf")
         self.restarts_so_far = 0
 
         self.intermediate_states = [self.current_state]
@@ -29,6 +29,13 @@ class RandomOptimizedAlgorithm(Algorithm):
         return result
 
     def solve(self):
+        self.current_state = self.initial_state
+        self.states = [self.initial_state]
+        self.dead_ends = []
+        self.restarts_so_far = 0
+        self.visited_states = []
+        self.intermediate_states = [self.current_state]
+
         while self.current_state != self.final_state:
             neighbours = self.neighbours()
             if len(neighbours) == 0:
@@ -45,16 +52,17 @@ class RandomOptimizedAlgorithm(Algorithm):
                 self.states.append(self.current_state)
 
     def go_back2(self):
-        if not self.intermediate_states or len(self.intermediate_states) <= 1:
+        if not self.intermediate_states:
             return
 
-        rand_state = random.choice(self.intermediate_states[1:])
+        rand_state = random.choice(self.intermediate_states)
 
-        while self.current_state != rand_state and self.states:
+        while self.current_state != rand_state and self.current_state != self.initial_state:
             self.current_state = self.states.pop()
             if self.current_state in self.intermediate_states:
                 self.intermediate_states.remove(self.current_state)
 
+        self.check_intermediate(self.current_state)
         self.states.append(self.current_state)
 
     def go_back1(self):
@@ -69,7 +77,7 @@ class RandomOptimizedAlgorithm(Algorithm):
         self.states.pop()
 
     def check_intermediate(self, state):
-        if self.compute_intermediate_score(state) > 0:
+        if self.compute_intermediate_score(state) > 0 or state == self.initial_state:
             self.intermediate_states.append(state)
 
     def compute_intermediate_score(self, state):

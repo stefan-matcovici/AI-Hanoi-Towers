@@ -4,7 +4,7 @@ from core import *
 
 
 class AStarAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=1, restarts=10, initial=[], final=[]):
+    def __init__(self, no_discs, no_rods, heuristic=4, restarts=10, initial=[], final=[]):
         """ Overridden constructor """
         Algorithm.__init__(self, no_discs, no_rods, initial, final)
 
@@ -18,7 +18,7 @@ class AStarAlgorithm(Algorithm):
 
     def solve(self):
         found = False
-        self.priorityQueue.put((0,self.initial_state))
+        self.priorityQueue.put((0, self.initial_state))
         self.came_from[self.initial_state] = self.initial_state
         self.state_cost[self.initial_state] = 0
         while not found and self.priorityQueue.qsize():

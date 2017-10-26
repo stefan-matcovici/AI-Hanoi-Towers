@@ -4,7 +4,7 @@ from core import *
 
 
 class HillClimbingAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=4, restarts=10, backsteps=20, initial=[], final=[]):
+    def __init__(self, no_discs, no_rods, heuristic=1, restarts=100, backsteps=200, initial=[], final=[]):
         """ Overridden constructor """
         Algorithm.__init__(self, no_discs, no_rods, initial, final)
 
