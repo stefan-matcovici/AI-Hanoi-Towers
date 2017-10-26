@@ -4,8 +4,8 @@ from core import *
 
 
 class RandomAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, initial=[]):
-        Algorithm.__init__(self, no_discs, no_rods, initial)
+    def __init__(self, no_discs, no_rods, initial=[], final=[]):
+        Algorithm.__init__(self, no_discs, no_rods, initial, final)
 
     def solve(self):
 

@@ -2,9 +2,9 @@ from core import *
 
 
 class BacktrackAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, branch_bound=False, initial=[]):
+    def __init__(self, no_discs, no_rods, branch_bound=False, initial=[], final=[]):
         """ Overridden constructor """
-        Algorithm.__init__(self, no_discs, no_rods, initial)
+        Algorithm.__init__(self, no_discs, no_rods, initial, final)
 
         self.database = []
         self.moves = {}

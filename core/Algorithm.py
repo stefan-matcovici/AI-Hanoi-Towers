@@ -4,14 +4,14 @@ from State import State
 
 
 class Algorithm:
-    def __init__(self, no_discs, no_rods, initial):
+    def __init__(self, no_discs, no_rods, initial, final):
         """ Constructor """
 
         self.no_rods = no_rods
         self.no_discs = no_discs
 
         self.initial_state = self.__init_initial_state(initial)
-        self.final_state = self.__init_final_state()
+        self.final_state = self.__init_final_state(final)
 
         self.current_state = State(state=self.initial_state)
         self.states = []
@@ -28,8 +28,10 @@ class Algorithm:
             arr.append(0)
         return State(arr)
 
-    def __init_final_state(self):
+    def __init_final_state(self, final):
         """ Initialize the final state with all the discs on the last rod """
+        if len(final) != 0:
+            return State(final)
         arr = []
         for i in range(self.no_discs):
             arr.append(self.no_rods - 1)

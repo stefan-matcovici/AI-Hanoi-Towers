@@ -4,8 +4,8 @@ from core import *
 
 
 class RandomOptimizedAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, restarts=1000, initial=[]):
-        Algorithm.__init__(self, no_discs, no_rods, initial)
+    def __init__(self, no_discs, no_rods, restarts=1000, initial=[], final=[]):
+        Algorithm.__init__(self, no_discs, no_rods, initial, final)
         self.dead_ends = []
         self.restarts = restarts
         self.restarts_so_far = 0

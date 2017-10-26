@@ -4,9 +4,9 @@ from core import *
 
 
 class HillClimbingAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=4, restarts=10, backsteps=20, initial=[]):
+    def __init__(self, no_discs, no_rods, heuristic=4, restarts=10, backsteps=20, initial=[], final=[]):
         """ Overridden constructor """
-        Algorithm.__init__(self, no_discs, no_rods, initial)
+        Algorithm.__init__(self, no_discs, no_rods, initial, final)
 
         self.database = []
         self.moves = {}

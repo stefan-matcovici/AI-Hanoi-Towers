@@ -1,13 +1,12 @@
 from Queue import PriorityQueue
-from copy import deepcopy
 
 from core import *
 
 
 class AStarAlgorithm(Algorithm):
-    def __init__(self, no_discs, no_rods, heuristic=1, restarts=10, initial=[]):
+    def __init__(self, no_discs, no_rods, heuristic=1, restarts=10, initial=[], final=[]):
         """ Overridden constructor """
-        Algorithm.__init__(self, no_discs, no_rods, initial)
+        Algorithm.__init__(self, no_discs, no_rods, initial, final)
 
         self.priorityQueue = PriorityQueue()
         self.state_cost = {}
